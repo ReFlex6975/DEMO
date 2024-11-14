@@ -6,10 +6,21 @@
       xmlns:local="clr-namespace:DEMO.Windows"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="partnersCatalog">
+      Title="Каталог партнёров">
+
     <Border CornerRadius="30,0,0,30" Margin="10">
         <Grid Background="White">
-            <Label FontSize="20" HorizontalAlignment="Center" Height="40px" Width="240px" >Каталог партнёров</Label>
+
+            <!-- Панель для карточек партнеров с возможностью прокрутки -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="PartnersStackPanel"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Stretch">
+                    <!-- Карточки будут загружаться сюда -->
+                </StackPanel>
+            </ScrollViewer>
+
+            
         </Grid>
     </Border>
 </Page>

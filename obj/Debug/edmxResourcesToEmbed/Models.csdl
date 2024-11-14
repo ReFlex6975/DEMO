@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DEMOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MaterialDefects">
+    <Key>
+      <PropertyRef Name="MaterialType" />
+    </Key>
+    <Property Name="MaterialType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DefectPercentage" Type="Decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="Partners">
+    <Key>
+      <PropertyRef Name="PartnerName" />
+    </Key>
+    <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PartnerType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DirectorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Rating" Type="Int32" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Partne__4BAC3F29" FromRole="Partners" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ProductMinimumCost">
+    <Key>
+      <PropertyRef Name="ArticleNumber" />
+    </Key>
+    <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ArticleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MinCost" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="ProductTypes" Relationship="Self.FK__ProductMi__Produ__5070F446" FromRole="ProductMinimumCost" ToRole="ProductTypes" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="SaleDate" Type="DateTime" />
+    <NavigationProperty Name="Partners" Relationship="Self.FK__Products__Partne__4BAC3F29" FromRole="Products" ToRole="Partners" />
+  </EntityType>
+  <EntityType Name="ProductTypes">
+    <Key>
+      <PropertyRef Name="ProductType" />
+    </Key>
+    <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Coefficient" Type="Decimal" Precision="4" Scale="2" />
+    <NavigationProperty Name="ProductMinimumCost" Relationship="Self.FK__ProductMi__Produ__5070F446" FromRole="ProductTypes" ToRole="ProductMinimumCost" />
+  </EntityType>
+  <Association Name="FK__Products__Partne__4BAC3F29">
+    <End Role="Partners" Type="Self.Partners" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="PartnerName" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="PartnerName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductMi__Produ__5070F446">
+    <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="0..1" />
+    <End Role="ProductMinimumCost" Type="Self.ProductMinimumCost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTypes">
+        <PropertyRef Name="ProductType" />
+      </Principal>
+      <Dependent Role="ProductMinimumCost">
+        <PropertyRef Name="ProductType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DEMOEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MaterialDefects" EntityType="Self.MaterialDefects" />
+    <EntitySet Name="Partners" EntityType="Self.Partners" />
+    <EntitySet Name="ProductMinimumCost" EntityType="Self.ProductMinimumCost" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" />
+    <AssociationSet Name="FK__Products__Partne__4BAC3F29" Association="Self.FK__Products__Partne__4BAC3F29">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductMi__Produ__5070F446" Association="Self.FK__ProductMi__Produ__5070F446">
+      <End Role="ProductTypes" EntitySet="ProductTypes" />
+      <End Role="ProductMinimumCost" EntitySet="ProductMinimumCost" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

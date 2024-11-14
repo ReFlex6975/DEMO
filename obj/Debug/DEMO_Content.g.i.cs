@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("windows/%d0%9c%d0%b0%d1%81%d1%82%d0%b5%d1%80%20%d0%bf%d0%be%d0%bb.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("models.context.tt")]
 
 
